@@ -7,20 +7,14 @@
 package imageformat;
 	 
 import javax.imageio.ImageIO;
-import javax.imageio.IIOParam;
-import javax.imageio.ImageReadParam;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
- 
 import java.io.File;
 import java.io.FileOutputStream;
-
-
 import javax.imageio.stream.ImageInputStream;
+import com.sun.media.imageioimpl.plugins.jpeg2000.J2KImageReaderSpi;
+import com.sun.media.imageioimpl.plugins.jpeg2000.J2KImageReader;
+import com.sun.media.imageio.plugins.jpeg2000.J2KImageReadParam;
 
 
 
@@ -43,10 +37,13 @@ public class ImageFormat {
             BufferedImage image=null;
             try {
             iis = ImageIO.createImageInputStream(f);
-            com.sun.media.imageioimpl.plugins.jpeg2000.J2KImageReaderSpi j2kImageReaderSpi = new com.sun.media.imageioimpl.plugins.jpeg2000.J2KImageReaderSpi();
-            com.sun.media.imageioimpl.plugins.jpeg2000.J2KImageReader j2kReader = new com.sun.media.imageioimpl.plugins.jpeg2000.J2KImageReader(j2kImageReaderSpi);
+         //   com.sun.media.imageioimpl.plugins.jpeg2000.J2KImageReaderSpi j2kImageReaderSpi = new com.sun.media.imageioimpl.plugins.jpeg2000.J2KImageReaderSpi();
+         //   com.sun.media.imageioimpl.plugins.jpeg2000.J2KImageReader j2kReader = new com.sun.media.imageioimpl.plugins.jpeg2000.J2KImageReader(j2kImageReaderSpi);
+		    
+	    J2KImageReaderSpi j2kImageReaderSpi = new J2KImageReaderSpi();
+            J2KImageReader j2kReader = new J2KImageReader(j2kImageReaderSpi);
             j2kReader.setInput(iis, true);
-            image = j2kReader.read(0, new com.sun.media.imageio.plugins.jpeg2000.J2KImageReadParam());
+            image = j2kReader.read(0, new J2KImageReadParam());
             String name = f.getName();
 
             name = name.substring(0, name.length() - 1) + "g";
